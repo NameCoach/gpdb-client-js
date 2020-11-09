@@ -20,7 +20,7 @@ For more information on NameCoach GPDB APi, you can visit [documentation page](h
 Using npm:
 
 ```javascript
-npm i --save gpdb-client
+npm i --save gpdb-api-client
 ```
 
 #### Configuration:
