@@ -50,6 +50,7 @@
     "@ava/typescript": "^1.1.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/node": "^14.14.6",
+    "@types/sinon": "^9.0.9",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "ava": "^3.13.0",
@@ -65,6 +66,7 @@
     "nyc": "^15.1.0",
     "open-cli": "^6.0.1",
     "prettier": "^2.1.2",
+    "sinon": "^9.2.1",
     "standard-version": "^9.0.0",
     "ts-node": "^9.0.0",
     "typedoc": "^0.19.2",
@@ -88,7 +90,11 @@
       }
     },
     "files": [
+      "test/**/*",
       "!build/module/**"
+    ],
+    "require": [
+      "ts-node/register"
     ]
   },
   "prettier": {

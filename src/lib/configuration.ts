@@ -1,15 +1,14 @@
 import IConfiguration from '../types/configuration';
 import Credentials from './credentials';
 
-// @ts-expect-error
-const env = process === undefined ? process.env : {};
+const env = process === undefined ? {} : process.env;
 
 export default class Configuration implements IConfiguration {
   public readonly credentials;
   accessKeyId: string;
   apiUrl: string;
   secretAccessKey: string;
-  analyticsApiUrl: string;
+  analyticsApiUrl: string | undefined;
 
   constructor({
       accessKeyId = env.GPDB_ACCESS_KEY_ID,
