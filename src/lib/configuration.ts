@@ -1,10 +1,12 @@
 import IConfiguration from '../types/configuration';
+import ICredentials from '../types/credentials';
+
 import Credentials from './credentials';
 
 const env = process === undefined ? {} : process.env;
 
 export default class Configuration implements IConfiguration {
-  public readonly credentials;
+  public readonly credentials: ICredentials;
   accessKeyId: string;
   apiUrl: string;
   secretAccessKey: string;
