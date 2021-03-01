@@ -73,15 +73,15 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
                   targetOwnerSig,
                   ...rest
                 }: UserResponseParams): Promise<unknown> {
-    const _signature = { userContext };
+    const { signature } = userContext;
 
     return this.httpClient.request({
-      path: `/pronunciation/${recordingId}/user_response`,
+      path: `/pronunciations/${recordingId}/user_response`,
       method: 'POST',
       contentType: 'json',
       body: {
         user_response: userResponse,
-        user_sig: _signature,
+        user_sig: signature,
         name_owner_sig: targetOwnerSig,
         ...rest
       }
