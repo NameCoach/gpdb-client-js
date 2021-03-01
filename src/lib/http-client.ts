@@ -26,7 +26,7 @@ export default class HttpClient implements IHttpClient {
       'Content-Type': type,
     }
 
-    const response = await fetch(
+    const response = await this.fetch(
       `${this.url}${path}?${stringify(<StringifiableRecord>params)}`, {
       method,
       headers,
@@ -50,5 +50,9 @@ export default class HttpClient implements IHttpClient {
       json: 'application/json',
       formData: 'multipart/form-data'
     }[type];
+  }
+
+  async fetch(url: RequestInfo, options: RequestInit): Promise<Response> {
+    return fetch(url, options);
   }
 }
