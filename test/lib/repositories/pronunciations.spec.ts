@@ -1,12 +1,18 @@
 import anyTest, { TestInterface } from 'ava';
 import sinon from 'sinon';
-
-import Application from '../../../src/types/input/application';
 import Credentials from '../../../src/lib/credentials';
 import HttpClient from '../../../src/lib/http-client';
+import PronunciationsRepository
+  from '../../../src/lib/repositories/pronunciations';
 import { IRequest } from '../../../src/types/http-client';
-import { SimpleSearchParams, ComplexSearchParams } from '../../../src/types/repositories/pronunciations';
-import PronunciationsRepository from '../../../src/lib/repositories/pronunciations';
+
+import Application from '../../../src/types/input/application';
+import {
+  ComplexSearchParams,
+  SimpleSearchParams,
+  UserResponse,
+  UserResponseParams
+} from '../../../src/types/repositories/pronunciations';
 
 const test = anyTest as TestInterface<{
   instance: PronunciationsRepository,
@@ -18,11 +24,19 @@ const simpleSearchParams: SimpleSearchParams = {
 }
 
 const complexSearchParams: ComplexSearchParams = {
-  targets: [ 
+  targets: [
     { target: 'one', targetTypeSig: 'typeSig', targetOwnerContext: { signature: 'userSig' } },
     { target: 'another', targetTypeSig: 'typeSig', targetOwnerContext: { signature: 'userSig' } },
   ],
   userContext: { signature: 'userSig' }
+}
+
+const userResponseParams: UserResponseParams = {
+  recordingId: 'recordingId',
+  userResponse: UserResponse.Save,
+  userContext: { signature: 'userSig' },
+  targetOwnerSig: 'targetOwnerSig'
+
 }
 
 const appAttributes: Application = {
@@ -59,7 +73,7 @@ test('simpleSearch transforms parameters to snakecase', t => {
   t.is(requestArgument.optional, simpleSearchParams.optional);
 })
 
-test('simpleSearch addes application attributes to the params', t => {
+test('simpleSearch adds application attributes to the params', t => {
   t.context.instance.simpleSearch(simpleSearchParams);
 
   const requestArgument = <SimpleSearchParams> t.context.requestStub.getCall(0).args[0].params;
@@ -86,13 +100,30 @@ test('complexSearch transforms parameters to snakecase included nested attribute
   t.deepEqual(requestArgument.targets[0].target_owner_context, complexSearchParams.targets[0].targetOwnerContext);
 })
 
-test('complexSearch addes application attributes to the params as application context', t => {
+test('complexSearch adds application attributes to the params as application context', t => {
   t.context.instance.complexSearch(complexSearchParams);
 
   const requestArgument = <ComplexSearchParams> t.context.requestStub.getCall(0).args[0].body;
 
   t.is(requestArgument.application_context.instance_sig, appAttributes.instanceSig);
   t.is(requestArgument.application_context.app_type_sig, appAttributes.typeSig);
+})
+
+test('userResponse calls http client and returns a response', async t => {
+  t.context.requestStub.resolves('response body');
+
+  t.is(await t.context.instance.userResponse(userResponseParams), 'response body');
+
+  sinon.assert.calledOnce(t.context.requestStub);
+})
+
+test('userResponse transforms parameters to snakecase', t => {
+  t.context.instance.userResponse(userResponseParams);
+
+  const requestArgument = <UserResponseParams> t.context.requestStub.getCall(0).args[0].params;
+
+  t.is(requestArgument.user_response, userResponseParams.userResponse);
+  t.is(requestArgument.name_owner_sig, userResponseParams.targetOwnerSig);
 })
 
 test.afterEach.always(t => {

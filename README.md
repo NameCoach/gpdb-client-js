@@ -104,6 +104,31 @@ Perform a search in GPDB given between 1 and 10 search targets.
     
 [Complex search documentation](https://namecoachgpdb.docs.apiary.io/#reference/pronunciations/complex-search/complex-search)
 
+### Create User Response
+
+Create a user response to a pronunciation if your licensing allows it.
+
+```javascript
+
+const result = await gpdbClient.pronunciations.userResponse({
+  recordingId: "some_id",
+  userResponse: "save",
+  userContext: { signature: "uuid" },
+  targetOwnerSig: "targetOwnerSig"
+})
+
+result
+// {
+//   "response_id": "aGPDBResponseSig",
+//   "user_sig": "uuid",
+//   "name_owner_sig": "targetOwnerSig",
+//   "user_response": "save",
+//   "created_at": "timestamp"
+// }
+```
+
+[Create user response documentation](https://namecoachgpdb.docs.apiary.io/#reference/pronunciations/create-user-response/create-user-response)
+
 ### Analytics Events
 
 #### Create analytics events
