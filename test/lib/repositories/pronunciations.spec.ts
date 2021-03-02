@@ -8,9 +8,13 @@ import { IRequest } from '../../../src/types/http-client';
 
 import Application from '../../../src/types/input/application';
 import {
+  TargetTypeSig,
+  UserResponse
+} from '../../../src/types/input/enum-types';
+import {
   ComplexSearchParams,
+  CreateRecordingParams,
   SimpleSearchParams,
-  UserResponse,
   UserResponseParams
 } from '../../../src/types/repositories/pronunciations';
 
@@ -20,13 +24,13 @@ const test = anyTest as TestInterface<{
 }>
 
 const simpleSearchParams: SimpleSearchParams = {
-  target: 'name', targetTypeSig: 'typeSig', targetOwnerSig: 'userSig', optional: 'isOptional'
+  target: 'name', targetTypeSig: TargetTypeSig.LastName, targetOwnerSig: 'userSig', optional: 'isOptional'
 }
 
 const complexSearchParams: ComplexSearchParams = {
   targets: [
-    { target: 'one', targetTypeSig: 'typeSig', targetOwnerContext: { signature: 'userSig' } },
-    { target: 'another', targetTypeSig: 'typeSig', targetOwnerContext: { signature: 'userSig' } },
+    { target: 'one', targetTypeSig: TargetTypeSig.FirstName, targetOwnerContext: { signature: 'userSig' } },
+    { target: 'another', targetTypeSig: TargetTypeSig.FirstName, targetOwnerContext: { signature: 'userSig' } },
   ],
   userContext: { signature: 'userSig' }
 }
@@ -37,6 +41,14 @@ const userResponseParams: UserResponseParams = {
   userContext: { signature: 'userSig' },
   targetOwnerSig: 'targetOwnerSig'
 
+}
+
+const createRecordingParams: CreateRecordingParams = {
+  target: 'name',
+  targetTypeSig: TargetTypeSig.FirstName,
+  audioBase64: 'long_base64_string',
+  nameOwnerContext: { signature: 'nameOwnerSig' },
+  userContext: { signature: 'userSig' },
 }
 
 const appAttributes: Application = {
@@ -124,6 +136,24 @@ test('userResponse transforms parameters to snakecase', t => {
 
   t.is(requestArgument.user_response, userResponseParams.userResponse);
   t.is(requestArgument.name_owner_sig, userResponseParams.targetOwnerSig);
+})
+
+test('createRecording calls http client and returns a response', async t => {
+  t.context.requestStub.resolves('response body');
+
+  t.is(await t.context.instance.createRecording(createRecordingParams), 'response body');
+
+  sinon.assert.calledOnce(t.context.requestStub);
+})
+
+test('createRecording transforms parameters to snakecase', t => {
+  t.context.instance.createRecording(createRecordingParams);
+
+  const requestArgument = <CreateRecordingParams> t.context.requestStub.getCall(0).args[0].params;
+
+  t.is(requestArgument.user_context, createRecordingParams.userContext);
+  t.is(requestArgument.target_type_sig, createRecordingParams.targetTypeSig);
+  t.is(requestArgument.name_owner_context, createRecordingParams.nameOwnerContext);
 })
 
 test.afterEach.always(t => {
