@@ -12,6 +12,8 @@ For more information on NameCoach GPDB APi, you can visit [documentation page](h
   - [Pronunciations](#pronunciations)
     - [Simple search](#simple-search)
     - [Complex search](#complex-search)
+    - [Create user response](#create-user-response)
+    - [Create recording](#create-recording)
   - [Analytics Events](#analytics-events)
     - [Create](#create-analytics-events)
 
@@ -128,6 +130,30 @@ result
 ```
 
 [Create user response documentation](https://namecoachgpdb.docs.apiary.io/#reference/pronunciations/create-user-response/create-user-response)
+
+### Create Recording
+
+Creating a recording requires target (name), name owner context(not required but advised), user context and application context - required.
+
+```javascript
+
+const result = await gpdbClient.pronunciations.createRecording({
+  target: 'name',
+  targetTypeSig: TargetTypeSig.FirstName,
+  audioBase64: 'long_base64_string',
+  userContext: { signature: 'userSig' },
+  nameOwnerContext: { signature: 'nameOwnerSig' },
+})
+
+result
+// {
+//   "id": "ABCDE",
+//   "name_text": "name",
+//   "audio_url": "https://a.name-coach.audiourl",
+// ...
+// }
+```
+[Create recording documentation](https://namecoachgpdb.docs.apiary.io/#reference/pronunciations/create-a-pronunciation/create-a-pronunciation)
 
 ### Analytics Events
 
