@@ -132,7 +132,7 @@ test('userResponse calls http client and returns a response', async t => {
 test('userResponse transforms parameters to snakecase', t => {
   t.context.instance.userResponse(userResponseParams);
 
-  const requestArgument = <UserResponseParams> t.context.requestStub.getCall(0).args[0].params;
+  const requestArgument = <UserResponseParams> t.context.requestStub.getCall(0).args[0].body;
 
   t.is(requestArgument.user_response, userResponseParams.userResponse);
   t.is(requestArgument.name_owner_sig, userResponseParams.targetOwnerSig);
@@ -149,9 +149,10 @@ test('createRecording calls http client and returns a response', async t => {
 test('createRecording transforms parameters to snakecase', t => {
   t.context.instance.createRecording(createRecordingParams);
 
-  const requestArgument = <CreateRecordingParams> t.context.requestStub.getCall(0).args[0].params;
+  const requestArgument = <CreateRecordingParams> t.context.requestStub.getCall(0).args[0].body;
 
-  t.is(requestArgument.user_context, createRecordingParams.userContext);
+  console.log(requestArgument.user_context, createRecordingParams.userContext)
+  t.deepEqual(requestArgument.user_context, createRecordingParams.userContext);
   t.is(requestArgument.target_type_sig, createRecordingParams.targetTypeSig);
   t.is(requestArgument.name_owner_context, createRecordingParams.nameOwnerContext);
 })
