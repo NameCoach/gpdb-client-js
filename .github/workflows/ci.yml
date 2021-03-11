@@ -48,7 +48,7 @@ jobs:
           prerelease: false
   npm-publish:
     name: Publish to npm
-    needs: [test, add-tag, update-changelog]
+    needs: [test, release]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
@@ -61,5 +61,4 @@ jobs:
           commit_pattern: "^Release (\\S+)"
           publish_command: "npm"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
