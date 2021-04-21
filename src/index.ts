@@ -7,6 +7,7 @@ import ICredentials from './types/credentials';
 import IConfiguration from './types/configuration';
 import AnalyticEvent from './types/input/analytic-event';
 import Application from './types/input/application';
+import NameOwner from './types/input/name-owner';
 import { UserResponse, TargetTypeSig } from './types/input/enum-types';
 import Target from './types/input/tasrget';
 import User from './types/input/user'
@@ -19,6 +20,7 @@ export {
   IConfiguration,
   AnalyticEvent,
   Application,
+  NameOwner,
   UserResponse,
   TargetTypeSig,
   Target,
