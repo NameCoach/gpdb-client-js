@@ -8,8 +8,11 @@ import HttpClient from './http-client';
 export default class Client implements IClient {
   public readonly pronunciations;
   public readonly analyticsEvents;
+  public readonly application: Application;
 
   constructor(application: Application, configuration: IConfiguration) {
+    this.application = application;
+
     this.pronunciations = new PronunciationsRepository(
       new HttpClient(configuration.apiUrl, configuration.credentials),
       application

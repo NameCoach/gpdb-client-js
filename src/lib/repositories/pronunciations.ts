@@ -23,7 +23,7 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
                   targetTypeSig,
                   targetOwnerSig,
                   ...rest
-                }: SimpleSearchParams): Promise<unknown> {
+                }: SimpleSearchParams): Promise<any> {
     return this.httpClient.request({
       path: '/pronunciations',
       method: 'GET',
@@ -44,7 +44,7 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
                    targets,
                    userContext,
                    ...rest
-                 }: ComplexSearchParams): Promise<unknown> {
+                 }: ComplexSearchParams): Promise<any> {
     const _targets = snakecaseKeys(targets);
     const _user = snakecaseKeys(userContext);
 
@@ -72,7 +72,7 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
                   userContext,
                   targetOwnerSig,
                   ...rest
-                }: UserResponseParams): Promise<unknown> {
+                }: UserResponseParams): Promise<any> {
     const { signature } = userContext;
 
     return this.httpClient.request({
@@ -95,7 +95,7 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
                      userContext,
                      nameOwnerContext = {},
                      ...rest
-                   }: CreateRecordingParams): Promise<unknown> {
+                   }: CreateRecordingParams): Promise<any> {
 
     const _user = snakecaseKeys(userContext);
 
