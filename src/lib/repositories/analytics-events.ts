@@ -10,7 +10,7 @@ export default class AnalyticsEventsRepository implements IAnalyticsEventsRepo {
     this.httpClient = httpClient;
   }
 
-  create(event: AnalyticEvent): Promise<unknown> {
+  create(event: AnalyticEvent): Promise<any> {
     const _event = snakecaseKeys(event);
 
     return this.httpClient.request({
