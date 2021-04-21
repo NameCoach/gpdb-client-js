@@ -34,8 +34,8 @@ export interface CreateRecordingParams {
 }
 
 export default interface IPronunciationsRepo {
-  simpleSearch: (arg0: SimpleSearchParams) => Promise<unknown>;
-  complexSearch: (arg0: ComplexSearchParams) => Promise<unknown>;
-  userResponse:(arg0: UserResponseParams) => Promise<unknown>;
-  createRecording:(arg0: CreateRecordingParams) => Promise<unknown>;
+  simpleSearch: (arg0: SimpleSearchParams) => Promise<any>;
+  complexSearch: (arg0: ComplexSearchParams) => Promise<any>;
+  userResponse:(arg0: UserResponseParams) => Promise<any>;
+  createRecording:(arg0: CreateRecordingParams) => Promise<any>;
 }
