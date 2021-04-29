@@ -3,7 +3,7 @@ import snakecaseKeys from 'snakecase-keys';
 import IHttpClient from '../../types/http-client';
 import Application from '../../types/input/application';
 import IPronunciationsRepo, {
-  ComplexSearchParams, CreateRecordingParams,
+  ComplexSearchParams, CreateRecordingParams, CreateRecordingRequestParams,
   SimpleSearchParams,
   UserResponseParams
 } from '../../types/repositories/pronunciations';
@@ -116,6 +116,27 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
           hedb_api_token: this.application.hedbApiToken,
           ...rest
         }
+      }
+    });
+  }
+
+  createRecordingRequest({ target, targetTypeSig, targetOwnerContext, userContext, ...rest }: CreateRecordingRequestParams): Promise<any> {
+    return this.httpClient.request({
+      path: '/recording_requests',
+      method: 'POST',
+      contentType: 'json',
+      body: {
+        target,
+        target_type_sig: targetTypeSig,
+        targetOwnerContext,
+        userContext,
+        application_context: {
+          app_description: this.application.description,
+          app_type_sig: this.application.typeSig,
+          instance_sig: this.application.instanceSig,
+          hedb_api_token: this.application.hedbApiToken,
+        },
+        ...rest
       }
     });
   }
