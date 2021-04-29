@@ -128,8 +128,8 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
       body: {
         target,
         target_type_sig: targetTypeSig,
-        targetOwnerContext,
-        userContext,
+        target_owner_context: targetOwnerContext,
+        user_context: userContext,
         application_context: {
           app_description: this.application.description,
           app_type_sig: this.application.typeSig,
