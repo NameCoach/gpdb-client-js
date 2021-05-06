@@ -36,9 +36,6 @@
     "version": "standard-version",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish"
   },
-  "engines": {
-    "node": ">=10"
-  },
   "dependencies": {
     "@types/jsonwebtoken": "^8.5.0",
     "cross-fetch": "^3.0.6",
