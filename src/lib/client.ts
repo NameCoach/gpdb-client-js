@@ -14,11 +14,19 @@ export default class Client implements IClient {
     this.application = application;
 
     this.pronunciations = new PronunciationsRepository(
-      new HttpClient(configuration.apiUrl, configuration.credentials),
+      new HttpClient(
+        configuration.apiUrl,
+        configuration.credentials,
+        configuration.headers
+      ),
       application
     );
     this.analyticsEvents = new AnalyticsEventsRepository(
-      new HttpClient(configuration.analyticsApiUrl, configuration.credentials),
+      new HttpClient(
+        configuration.analyticsApiUrl,
+        configuration.credentials,
+        configuration.headers
+      ),
     );
   }
 }
