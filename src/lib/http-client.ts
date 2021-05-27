@@ -2,16 +2,22 @@ import fetch from 'cross-fetch';
 import { StringifiableRecord, stringify } from 'query-string';
 import ICredentials from '../types/credentials';
 import IHttpClient, { ContentType, IRequest } from '../types/http-client';
+import { HeadersInit } from '../types/configuration';
 
 export default class HttpClient implements IHttpClient {
   private readonly url: string | undefined;
   private readonly headers: object;
   private credentials: ICredentials;
 
-  constructor(url: string | undefined, credentials: ICredentials ) {
+  constructor(
+    url: string | undefined,
+    credentials: ICredentials,
+    headers: HeadersInit
+  ) {
     this.url = url;
     this.credentials = credentials;
     this.headers = {
+      ...headers,
       Accept: 'application/json',
       'User-Agent': 'gpdb-ts-client'
     };
