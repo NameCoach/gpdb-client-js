@@ -1,4 +1,4 @@
-import IConfiguration from '../types/configuration';
+import IConfiguration, { HeadersInit } from '../types/configuration';
 import ICredentials from '../types/credentials';
 
 import Credentials from './credentials';
@@ -10,13 +10,15 @@ export default class Configuration implements IConfiguration {
   accessKeyId: string;
   apiUrl: string;
   secretAccessKey: string;
-  analyticsApiUrl: string | undefined;
+  analyticsApiUrl: string;
+  headers: HeadersInit;
 
   constructor({
       accessKeyId = env.GPDB_ACCESS_KEY_ID,
       secretAccessKey = env.GPDB_SECRET_ACCESS_KEY,
       apiUrl = env.GPDB_API_URL,
-      analyticsApiUrl = env.GPDB_ANALYTICS_API_URL
+      analyticsApiUrl = env.GPDB_ANALYTICS_API_URL,
+      headers = {},
     }) {
 
     if (!accessKeyId)
@@ -32,6 +34,7 @@ export default class Configuration implements IConfiguration {
     this.secretAccessKey = secretAccessKey;
     this.apiUrl = apiUrl;
     this.analyticsApiUrl = analyticsApiUrl;
+    this.headers = headers;
 
     this.credentials = new Credentials(accessKeyId, secretAccessKey)
   }
