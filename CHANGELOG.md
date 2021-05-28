@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 ### 1.0.13 (2021-05-28)
-
+Add posibility to set default headers in Configuration
 ### 1.0.12 (2021-05-06)
 Remove engine requirements from package.json for npm
 ### 1.0.10 (2021-04-29)
