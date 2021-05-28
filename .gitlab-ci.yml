@@ -1,0 +1,8 @@
+include:
+  - project: 'NameCoach/shared-ci'
+    file: 'git-filter.yml'
+
+variables:
+  MIRROR_GIT_NAME: NameCoachDevTeam
+  MIRROR_GIT_EMAIL: dev-team@name-coach.com
+  MIRROR_REMOTE: git@github.com:NameCoach/gpdb-widget.git
