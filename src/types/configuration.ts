@@ -8,5 +8,5 @@ export default interface IConfiguration {
   secretAccessKey: string;
   apiUrl: string;
   analyticsApiUrl?: string;
-  headers: HeadersInit;
+  headers?: HeadersInit;
 }
