@@ -12,7 +12,7 @@ export default class HttpClient implements IHttpClient {
   constructor(
     url: string | undefined,
     credentials: ICredentials,
-    headers: HeadersInit
+    headers?: HeadersInit
   ) {
     this.url = url;
     this.credentials = credentials;
