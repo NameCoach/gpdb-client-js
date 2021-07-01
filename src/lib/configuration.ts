@@ -10,7 +10,7 @@ export default class Configuration implements IConfiguration {
   accessKeyId: string;
   apiUrl: string;
   secretAccessKey: string;
-  analyticsApiUrl: string;
+  analyticsApiUrl?: string;
   headers: HeadersInit;
 
   constructor({
