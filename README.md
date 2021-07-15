@@ -16,6 +16,9 @@ For more information on NameCoach GPDB APi, you can visit [documentation page](h
     - [Create recording](#create-recording)
   - [Analytics Events](#analytics-events)
     - [Create](#create-analytics-events)
+  - [Permissions](#permissions)
+   - [Load](#load)
+  
 
 ## Installation
 
@@ -170,3 +173,18 @@ Create analytics event:
   });
 ```
 [Create analytics events documentation](https://s3-us-west-1.amazonaws.com/public-api-documentations/data-analytics-api.html#analytics-events-post)
+
+### Permissions
+
+#### Load
+
+Quick simple request to get resource permissions for current app.
+
+```javascript
+
+  const result = await client.permissions.load();
+
+  result
+  // const permissionsManager = result;
+  // const canCreateRecording = permissionsManager.can("pronounciation", "create");~~_``_~~
+```
