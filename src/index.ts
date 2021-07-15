@@ -3,12 +3,12 @@ import Configuration from './lib/configuration';
 import HttpClient from './lib/http-client';
 
 // TYPES
-import ICredentials from './types/credentials';
 import IConfiguration from './types/configuration';
+import ICredentials from './types/credentials';
 import AnalyticEvent from './types/input/analytic-event';
 import Application from './types/input/application';
+import { TargetTypeSig, UserResponse } from './types/input/enum-types';
 import NameOwner from './types/input/name-owner';
-import { UserResponse, TargetTypeSig } from './types/input/enum-types';
 import Target from './types/input/tasrget';
 import User from './types/input/user'
 
