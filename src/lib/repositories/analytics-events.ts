@@ -1,7 +1,9 @@
-import IAnalyticsEventsRepo from '../../types/repositories/analytics-events';
+import snakecaseKeys from 'snakecase-keys';
+
 import IHttpClient from '../../types/http-client';
 import AnalyticEvent from '../../types/input/analytic-event';
-import snakecaseKeys from 'snakecase-keys';
+import IAnalyticsEventsRepo from '../../types/repositories/analytics-events';
+
 
 export default class AnalyticsEventsRepository implements IAnalyticsEventsRepo {
   private httpClient: IHttpClient;

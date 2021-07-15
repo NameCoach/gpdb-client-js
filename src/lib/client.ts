@@ -1,13 +1,16 @@
 import IClient from '../types/client';
-import Application from '../types/input/application';
 import IConfiguration from '../types/configuration';
-import PronunciationsRepository from './repositories/pronunciations';
-import AnalyticsEventsRepository from './repositories/analytics-events';
+import Application from '../types/input/application';
+
 import HttpClient from './http-client';
+import AnalyticsEventsRepository from './repositories/analytics-events';
+import PermissionsRepository from './repositories/permissions';
+import PronunciationsRepository from './repositories/pronunciations';
 
 export default class Client implements IClient {
   public readonly pronunciations;
   public readonly analyticsEvents;
+  public readonly permissions;
   public readonly application: Application;
 
   constructor(application: Application, configuration: IConfiguration) {
@@ -28,5 +31,13 @@ export default class Client implements IClient {
         configuration.headers
       ),
     );
+    this.permissions = new PermissionsRepository(
+      new HttpClient(
+        configuration.apiUrl,
+        configuration.credentials,
+        configuration.headers
+      ),
+      application
+    )
   }
 }
