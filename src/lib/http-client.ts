@@ -1,8 +1,9 @@
 import fetch from 'cross-fetch';
 import { StringifiableRecord, stringify } from 'query-string';
+
+import { HeadersInit } from '../types/configuration';
 import ICredentials from '../types/credentials';
 import IHttpClient, { ContentType, IRequest } from '../types/http-client';
-import { HeadersInit } from '../types/configuration';
 
 export default class HttpClient implements IHttpClient {
   private readonly url: string | undefined;
@@ -41,7 +42,7 @@ export default class HttpClient implements IHttpClient {
     const respBody = await response.json();
 
     if (!response.ok) {
-      let msgParts = [`[GPDB] ${response.statusText}.`];
+      const msgParts = [`[GPDB] ${response.statusText}.`];
 
       if (respBody.message) msgParts.push(`Message: ${respBody?.message}`);
 
