@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.5 (2021-07-15)
+
+
+### Bug Fixes
+
+* make headers optional for configuration and http client ([7e5dd8b](https://github.com/NameCoach/gpdb-client-js/commit/7e5dd8b014a5c1724d106b5d8fdd2c6970889b25))
+
 ### 1.1.3 (2021-07-15)
 
 
