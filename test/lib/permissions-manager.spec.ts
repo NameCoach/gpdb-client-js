@@ -1,9 +1,9 @@
 import anyTest, { TestInterface } from 'ava';
-import PermissionsManager from '../../build/main/lib/permissions-manager';
+import PermissionsManager from '../../src/lib/permissions-manager';
 import {
   ResourcePermissions,
   Resources
-} from '../../build/main/types/repositories/permissions';
+} from '../../src/types/repositories/permissions';
 
 const test = anyTest as TestInterface<{
   permissions: ResourcePermissions,
