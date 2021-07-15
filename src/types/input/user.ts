@@ -12,6 +12,6 @@ export default interface User {
   hedb_owne_ids?: Array<string>;
   location?: Location;
   native_languages?: Array<string>;
-  spoken_languages?: Array<String>;
+  spoken_languages?: Array<string>;
   [x: string]: any;
 }
