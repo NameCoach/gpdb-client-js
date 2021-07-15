@@ -1,6 +1,7 @@
 import Client from './lib/client';
 import Configuration from './lib/configuration';
 import HttpClient from './lib/http-client';
+import PermissionsManager from './lib/permissions-manager';
 
 // TYPES
 import IConfiguration from './types/configuration';
@@ -24,5 +25,6 @@ export {
   UserResponse,
   TargetTypeSig,
   Target,
-  User
+  User,
+  PermissionsManager
 };
