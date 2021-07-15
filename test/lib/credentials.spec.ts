@@ -10,7 +10,7 @@ const test = anyTest as TestInterface<{
 test.before(t => {
   t.context.accessKeyId = 'access key';
   t.context.secretAccessKey = 'secret access key';
-  
+
   t.context.instance = new Credentials(
     t.context.accessKeyId,
     t.context.secretAccessKey
