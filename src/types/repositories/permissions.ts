@@ -1,3 +1,5 @@
+import PermissionsManager from '../../lib/permissions-manager';
+
 export enum Resources {
   Pronunciation = "pronunciation",
   UserResponse = "user_response",
