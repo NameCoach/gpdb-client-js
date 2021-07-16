@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.9](https://github.com/NameCoach/gpdb-client-js/compare/v1.1.5...v1.1.9) (2021-07-16)
+
 ### [1.1.7](https://github.com/NameCoach/gpdb-client-js/compare/v1.1.1...v1.1.7) (2021-07-15)
 
 ### 1.1.5 (2021-07-15)
