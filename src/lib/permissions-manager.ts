@@ -9,6 +9,8 @@ export default class PermissionsManager implements IPermissionsManager{
   }
 
   can(resource: Resources, permission: string): boolean {
+    if (this.permissions[resource].includes('*'))
+      return true
     return this.permissions[resource].includes(permission);
   }
 }
