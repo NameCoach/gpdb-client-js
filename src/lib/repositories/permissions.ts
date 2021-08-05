@@ -18,10 +18,8 @@ export default class PermissionsRepository implements IPermissionsRepo {
       method: 'GET',
       contentType: 'json',
       params: {
-        application_context: {
-          app_type_sig: this.application.typeSig,
-          instance_sig: this.application.instanceSig,
-        }
+        application_sig: this.application.instanceSig,
+        application_type_sig: this.application.typeSig,
       }
     });
 
