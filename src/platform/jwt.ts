@@ -2,8 +2,8 @@ import { KJUR }  from "jsrsasign"
 
 interface JWTSignInput {
   algorithm: string;
-  payload: string | object;
-  header: object;
+  payload: string | Record<string, unknown>;
+  header: Record<string, unknown>;
   secretAccessKey: string;
 }
 
