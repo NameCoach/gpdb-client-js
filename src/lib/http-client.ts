@@ -7,7 +7,7 @@ import IHttpClient, { ContentType, IRequest } from '../types/http-client';
 
 export default class HttpClient implements IHttpClient {
   private readonly url: string | undefined;
-  private readonly headers: object;
+  private readonly headers: Record<string, unknown>;
   private credentials: ICredentials;
 
   constructor(
