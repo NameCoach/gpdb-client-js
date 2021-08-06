@@ -4,8 +4,8 @@ export interface IRequest {
   path: string;
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   contentType: ContentType,
-  params?: object,
-  body?: string | FormData | object,
+  params?: Record<string, unknown>,
+  body?: string | FormData | Record<string, unknown>,
 }
 
 export default interface IHttpClient {
