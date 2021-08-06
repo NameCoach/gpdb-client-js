@@ -29,7 +29,7 @@ export interface CreateRecordingParams {
   targetTypeSig: TargetTypeSig;
   audioBase64: string;
   userContext: User;
-  nameOwnerContext: NameOwner|{};
+  nameOwnerContext: NameOwner| Record<string, unknown>;
   [x: string]: any;
 }
 
