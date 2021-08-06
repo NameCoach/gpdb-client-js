@@ -11,7 +11,8 @@ import Application from './types/input/application';
 import { TargetTypeSig, UserResponse } from './types/input/enum-types';
 import NameOwner from './types/input/name-owner';
 import Target from './types/input/tasrget';
-import User from './types/input/user'
+import User from './types/input/user';
+import Resources from './types/repositories/permissions';
 
 export {
   Client,
@@ -26,5 +27,6 @@ export {
   TargetTypeSig,
   Target,
   User,
-  PermissionsManager
+  PermissionsManager,
+  Resources
 };
