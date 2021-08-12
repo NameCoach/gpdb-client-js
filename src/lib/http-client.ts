@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import { StringifiableRecord, stringify } from 'query-string';
+import { stringify } from 'query-string';
 
 import { HeadersInit } from '../types/configuration';
 import ICredentials from '../types/credentials';
@@ -34,7 +34,7 @@ export default class HttpClient implements IHttpClient {
     }
 
     const response = await this.fetch(
-      `${this.url}${path}?${stringify(<StringifiableRecord>params)}`, {
+      `${this.url}${path}?${stringify(params as any)}`, {
       method,
       headers,
       body: _body,
