@@ -18,9 +18,9 @@ const appAttributes: Application = {
 }
 
 const permissions: ResourcePermissions = {
-  "pronunciation": ["create"],
-  "user_response": ["create", "find"],
-  "recording_request": ["create"]
+  "pronunciation": { "actions": ["create"], "exclude_actions": [] },
+  "user_response": { "actions": ["create", "find"], "exclude_actions": [] },
+  "recording_request": { "actions": ["create"], "exclude_actions": [] }
 }
 
 const permissionsManager = new PermissionsManager(permissions)
