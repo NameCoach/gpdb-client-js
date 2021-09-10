@@ -6,7 +6,12 @@ export enum Resources {
   RecordingRequest = "recording_request"
 }
 
-export type ResourcePermissions = Partial<Record<Resources, string[]>>;
+export type Actions = {
+  actions: string[],
+  exclude_actions: string[]
+}
+
+export type ResourcePermissions = Partial<Record<Resources, Actions>>;
 
 export default interface IPronunciationsRepo {
   load: () => Promise<PermissionsManager>;
