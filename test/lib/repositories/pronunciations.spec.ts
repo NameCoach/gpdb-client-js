@@ -151,7 +151,6 @@ test('createRecording transforms parameters to snakecase', t => {
 
   const requestArgument = <CreateRecordingParams> t.context.requestStub.getCall(0).args[0].body;
 
-  console.log(requestArgument.user_context, createRecordingParams.userContext)
   t.deepEqual(requestArgument.user_context, createRecordingParams.userContext);
   t.is(requestArgument.target_type_sig, createRecordingParams.targetTypeSig);
   t.is(requestArgument.name_owner_context, createRecordingParams.nameOwnerContext);
