@@ -12,8 +12,8 @@ const test = anyTest as TestInterface<{
 
 test.before(t => {
   t.context.permissions = {
-    "pronunciation": ["create"],
-    "recording_request": ["*"]
+    "pronunciation": { actions: ["create", "index"] ,exclude_actions: ["index"] },
+    "recording_request": {actions: ["*"], exclude_actions: ["show"] }
   },
   t.context.instance = new PermissionsManager(
     t.context.permissions,
@@ -21,15 +21,21 @@ test.before(t => {
 })
 
 test('can() bool value', t => {
-  const truthy_1 = ["pronunciation", "create"]
-  const truthy_2 = ["recording_request", "create"]
-  const falsey_1 = ["pronunciation", "show"]
-  const falsey_2 = ["user_response", "show"]
+  const pronunciation_resource = "pronunciation";
+  const recording_request_resource = "recording_request";
+  const user_response_resource = "user_response";
 
+  const create_permission = "create";
+  const show_permission = "show";
+  const index_permission = "index"
 
-  t.is(t.context.instance.can(...truthy_1 as [resource: Resources, permission: string]), true);
-  t.is(t.context.instance.can(...truthy_2 as [resource: Resources, permission: string]), true);
-  t.is(t.context.instance.can(...falsey_1 as [resource: Resources, permission: string]), false);
-  t.is(t.context.instance.can(...falsey_2 as [resource: Resources, permission: string]), false);
+  t.is(t.context.instance.can(pronunciation_resource as Resources, create_permission), true);
+  t.is(t.context.instance.can(recording_request_resource as Resources, create_permission), true);
+  t.is(t.context.instance.can(recording_request_resource as Resources, show_permission), false);
+  t.is(t.context.instance.can(pronunciation_resource as Resources, index_permission), false);
+  t.is(t.context.instance.can(pronunciation_resource as Resources, show_permission), false);
+  t.is(t.context.instance.can(user_response_resource as Resources, show_permission), false);
+  t.is(t.context.instance.can(user_response_resource as Resources), false);
+  t.is(t.context.instance.can(pronunciation_resource as Resources), true);
 
 })
