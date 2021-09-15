@@ -4,39 +4,38 @@ import Application from '../types/input/application';
 
 import HttpClient from './http-client';
 import AnalyticsEventsRepository from './repositories/analytics-events';
+import BrowserExtensionRepository from './repositories/browser-extension';
 import PermissionsRepository from './repositories/permissions';
 import PronunciationsRepository from './repositories/pronunciations';
 
 export default class Client implements IClient {
   public readonly pronunciations;
   public readonly analyticsEvents;
+  public readonly browserExtension;
   public readonly permissions;
   public readonly application: Application;
 
   constructor(application: Application, configuration: IConfiguration) {
-    this.application = application;
+    const analyticsApiHttpClient = new HttpClient(
+      configuration.analyticsApiUrl,
+      configuration.credentials,
+      configuration.headers
+    ),
+      apiHttpClient = new HttpClient(
+      configuration.apiUrl,
+      configuration.credentials,
+      configuration.headers
+    );
 
+    this.application = application;
     this.pronunciations = new PronunciationsRepository(
-      new HttpClient(
-        configuration.apiUrl,
-        configuration.credentials,
-        configuration.headers
-      ),
+      apiHttpClient,
       application
     );
-    this.analyticsEvents = new AnalyticsEventsRepository(
-      new HttpClient(
-        configuration.analyticsApiUrl,
-        configuration.credentials,
-        configuration.headers
-      ),
-    );
+    this.analyticsEvents = new AnalyticsEventsRepository(analyticsApiHttpClient);
+    this.browserExtension = new BrowserExtensionRepository(analyticsApiHttpClient);
     this.permissions = new PermissionsRepository(
-      new HttpClient(
-        configuration.apiUrl,
-        configuration.credentials,
-        configuration.headers
-      ),
+      apiHttpClient,
       application
     )
   }
