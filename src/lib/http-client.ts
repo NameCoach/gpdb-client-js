@@ -38,8 +38,8 @@ export default class HttpClient implements IHttpClient {
       method,
       headers,
       body: _body,
-    })
-    const respBody = await response.json();
+    });
+    const respBody = await response.clone().json().catch(() => response.text());
 
     if (!response.ok) {
       const msgParts = [`[GPDB] ${response.statusText}.`];
