@@ -140,4 +140,25 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
       }
     });
   }
+
+  findRecordingRequest({ target, targetTypeSig, targetOwnerContext, userContext, ...rest }: CreateRecordingRequestParams): Promise<any> {
+    return this.httpClient.request({
+      path: '/recording_requests/find',
+      method: 'POST',
+      contentType: 'json',
+      body: {
+        target,
+        target_type_sig: targetTypeSig,
+        target_owner_context: targetOwnerContext,
+        user_context: userContext,
+        application_context: {
+          app_description: this.application.description,
+          app_type_sig: this.application.typeSig,
+          instance_sig: this.application.instanceSig,
+          hedb_api_token: this.application.hedbApiToken,
+        },
+        ...rest
+      }
+    });
+  }
 }
