@@ -8,7 +8,7 @@ export default interface BrowserExtension {
   entityType: "browser_extension_user";
   userId: string,
   rootUrl: string,
-  toolSignature: "browser_extension",
+  toolSignature: string,
   recordingId?: string,
   eventType: string,
   eventId?: string,
