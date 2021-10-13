@@ -31,12 +31,20 @@ test.beforeEach(t => {
   t.context.requestStub = sinon.stub(httpClient, 'request');
 
   t.context.instance = new PermissionsRepository(httpClient, appAttributes);
+
+  t.context.requestStub.resolves(permissions);
 })
 
-test('create calls http client and returns a response', async t => {
-  t.context.requestStub.resolves(permissions);
-
+test('when load have no params creates calls http client and returns a response', async t => {
   t.deepEqual(await t.context.instance.load(), permissionsManager);
+
+  sinon.assert.calledOnce(t.context.requestStub);
+})
+
+test('when load have params creates calls http client and returns a response', async t => {
+  const rest = { user_sig: "user_sig", user_type_sig: "user_type_sig" };
+  
+  t.deepEqual(await t.context.instance.load(rest), permissionsManager);
 
   sinon.assert.calledOnce(t.context.requestStub);
 })
