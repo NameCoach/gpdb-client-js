@@ -11,8 +11,12 @@ export type Actions = {
   exclude_actions: string[]
 }
 
+export interface loadParams {
+  [x: string]: any;
+}
+
 export type ResourcePermissions = Partial<Record<Resources, Actions>>;
 
 export default interface IPronunciationsRepo {
-  load: () => Promise<PermissionsManager>;
+  load: (params?: loadParams) => Promise<PermissionsManager>;
 }
