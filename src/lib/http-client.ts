@@ -31,7 +31,7 @@ export default class HttpClient implements IHttpClient {
       ...this.headers,
       Authorization: this.credentials.signatureHeader(),
       'Content-Type': type,
-    }
+    };
 
     const response = await this.fetch(
       `${this.url}${path}?${stringify(params as any)}`, {
