@@ -1,6 +1,6 @@
 import IHttpClient from '../../types/http-client';
 import Application from '../../types/input/application';
-import IPermissionsRepo, { ResourcePermissions } from '../../types/repositories/permissions';
+import IPermissionsRepo, { loadParams, ResourcePermissions } from '../../types/repositories/permissions';
 import PermissionsManager from '../permissions-manager';
 
 export default class PermissionsRepository implements IPermissionsRepo {
@@ -12,7 +12,7 @@ export default class PermissionsRepository implements IPermissionsRepo {
     this.application = application;
   }
 
-  async load (): Promise<PermissionsManager> {
+  async load (rest?: loadParams): Promise<PermissionsManager> {
     const permissions = await this.httpClient.request({
       path: '/permissions',
       method: 'GET',
@@ -20,7 +20,8 @@ export default class PermissionsRepository implements IPermissionsRepo {
       params: {
         application_sig: this.application.instanceSig,
         application_type_sig: this.application.typeSig,
-      }
+        ...rest,
+      },
     });
 
     return new PermissionsManager(permissions as ResourcePermissions);
