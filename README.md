@@ -12,6 +12,7 @@ For more information on NameCoach GPDB APi, you can visit [documentation page](h
   - [Pronunciations](#pronunciations)
     - [Simple search](#simple-search)
     - [Complex search](#complex-search)
+    - [Search by Sig](#search-by-sig)
     - [Create user response](#create-user-response)
     - [Create recording](#create-recording)
   - [Analytics Events](#analytics-events)
@@ -106,8 +107,22 @@ Perform a search in GPDB given between 1 and 10 search targets.
   result
   // { target_result: { ... }, meta: { ... } }
 ```
+
+#### Search by Sig
+
+Perform a search in GPDB by target owner signature.
+
+```javascript
+  const result =  await client.pronunciations.searchBySig({
+    targetOwnerContext: { signature: "uuid" },
+    userContext: { signature: "uuid" }
+  });
+
+  result
+  // { target_result: { ... }, meta: { ... } }
+```
     
-[Complex search documentation](https://namecoachgpdb.docs.apiary.io/#reference/pronunciations/complex-search/complex-search)
+TODO add link to docs after release
 
 ### Create User Response
 
