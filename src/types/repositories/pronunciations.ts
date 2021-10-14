@@ -16,6 +16,12 @@ export interface ComplexSearchParams {
   [x: string]: any;
 }
 
+export interface SearchBySigParams {
+  targetOwnerContext: User;
+  userContext: User;
+  [x: string]: any;
+}
+
 export interface UserResponseParams {
   recordingId: string;
   userResponse: UserResponse;
@@ -44,6 +50,7 @@ export interface CreateRecordingRequestParams {
 export default interface IPronunciationsRepo {
   simpleSearch: (arg0: SimpleSearchParams) => Promise<any>;
   complexSearch: (arg0: ComplexSearchParams) => Promise<any>;
+  searchBySig: (arg0: SearchBySigParams) => Promise<any>;
   userResponse:(arg0: UserResponseParams) => Promise<any>;
   createRecording:(arg0: CreateRecordingParams) => Promise<any>;
   createRecordingRequest: (arg0: CreateRecordingRequestParams) => Promise<any>;
