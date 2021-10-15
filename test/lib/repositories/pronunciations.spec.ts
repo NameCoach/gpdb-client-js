@@ -15,6 +15,7 @@ import {
   ComplexSearchParams,
   CreateRecordingParams,
   SimpleSearchParams,
+  SearchBySigParams,
   UserResponseParams
 } from '../../../src/types/repositories/pronunciations';
 
@@ -33,6 +34,11 @@ const complexSearchParams: ComplexSearchParams = {
     { target: 'another', targetTypeSig: TargetTypeSig.FirstName, targetOwnerContext: { signature: 'userSig' } },
   ],
   userContext: { signature: 'userSig' }
+}
+
+const searchBySigParams: SearchBySigParams = {
+  targetOwnerContext: { signature: 'ownerSig' },
+  userContext: { signature: 'userSig' },
 }
 
 const userResponseParams: UserResponseParams = {
@@ -116,6 +122,23 @@ test('complexSearch adds application attributes to the params as application con
   t.context.instance.complexSearch(complexSearchParams);
 
   const requestArgument = <ComplexSearchParams> t.context.requestStub.getCall(0).args[0].body;
+
+  t.is(requestArgument.application_context.instance_sig, appAttributes.instanceSig);
+  t.is(requestArgument.application_context.app_type_sig, appAttributes.typeSig);
+})
+
+test('searchBySig calls http client and returns a response', async t => {
+  t.context.requestStub.resolves('some response');
+
+  t.is(await t.context.instance.searchBySig(searchBySigParams), 'some response');
+
+  sinon.assert.calledOnce(t.context.requestStub);
+})
+
+test('searchBySig adds application attributes to the params as application context', t => {
+  t.context.instance.searchBySig(searchBySigParams);
+
+  const requestArgument = <SearchBySigParams> t.context.requestStub.getCall(0).args[0].body;
 
   t.is(requestArgument.application_context.instance_sig, appAttributes.instanceSig);
   t.is(requestArgument.application_context.app_type_sig, appAttributes.typeSig);
