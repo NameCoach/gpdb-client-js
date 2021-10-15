@@ -4,7 +4,7 @@ import IHttpClient from '../../types/http-client';
 import Application from '../../types/input/application';
 import IPronunciationsRepo, {
   ComplexSearchParams, CreateRecordingParams, CreateRecordingRequestParams,
-  SimpleSearchParams,
+  SearchBySigParams, SimpleSearchParams,
   UserResponseParams
 } from '../../types/repositories/pronunciations';
 
@@ -54,6 +54,32 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
       contentType: 'json',
       body: {
         targets: _targets,
+        user_context: _user,
+        application_context: {
+          app_description: this.application.description,
+          app_type_sig: this.application.typeSig,
+          instance_sig: this.application.instanceSig,
+          hedb_api_token: this.application.hedbApiToken
+        },
+        ...rest
+      }
+    });
+  }
+
+  searchBySig ({
+                 targetOwnerContext,
+                   userContext,
+                   ...rest
+                 }: SearchBySigParams): Promise<any> {
+    const _target_owner_context = snakecaseKeys(targetOwnerContext);
+    const _user = snakecaseKeys(userContext);
+
+    return this.httpClient.request({
+      path: '/pronunciations/search_by_sig',
+      method: 'POST',
+      contentType: 'json',
+      body: {
+        target_owner_context: _target_owner_context,
         user_context: _user,
         application_context: {
           app_description: this.application.description,
