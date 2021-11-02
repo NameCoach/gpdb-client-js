@@ -1,7 +1,8 @@
 export enum UserResponse {
   Save ="save",
   Skip = "skip",
-  Reject = "reject"
+  Reject = "reject",
+  NoOpinion = "no_opinion"
 }
 
 export  enum TargetTypeSig {
