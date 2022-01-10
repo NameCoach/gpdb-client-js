@@ -60,7 +60,7 @@ import { Client, Configuration } from "gpdb-client";
 // ... configuration
 
 const client = new Client({ instanceSig: 'example.com', typeSig: 'dns' }, config);
-const result = await client.pronunciations.simpleSearch({ target: "Sergey", targetTypeSig: "fristName", targetOwnerSig: "sergey" })
+const result = await client.pronunciations.simpleSearch({ target: "Sergey", targetTypeSig: TargetTypeSig.FirstName, targetOwnerSig: "sergey" })
 ```
 
 You can find detailed information about all possible parameters and the response format
@@ -81,7 +81,7 @@ Quick simple request to get pronunciation for a single target.
 
   const result = await client.pronunciations.simpleSearch({ 
     target: "Sergey", 
-    targetTypeSig: "fristName", 
+    targetTypeSig: TargetTypeSig.FirstName, 
     targetOwnerSig: "sergey" 
   });
 
@@ -98,8 +98,8 @@ Perform a search in GPDB given between 1 and 10 search targets.
 ```javascript
   const result =  await client.pronunciations.complexSearch({
     targets: [
-      { target: "jack", targetTypeSig: 'test', targetOwnerContext: { signature: 'uuid' } },
-      { target: "pavel", targetTypeSig: 'test', targetOwnerContext: { signature: 'uuid' } } 
+      { target: "jack", targetTypeSig: TargetTypeSig.FirstName, targetOwnerContext: { signature: 'uuid' } },
+      { target: "pavel", targetTypeSig: TargetTypeSig.FirstName, targetOwnerContext: { signature: 'uuid' } } 
       ],
     userContext: { signature: "uuid" }
   });
