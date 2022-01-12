@@ -56,11 +56,11 @@ const config = new Configuration({
 You need to create a client instance to perform requests. Basic example:
 
 ```javascript
-import { Client, Configuration } from "gpdb-client";
+import { Client, TargetTypeSig } from "gpdb-client";
 // ... configuration
 
 const client = new Client({ instanceSig: 'example.com', typeSig: 'dns' }, config);
-const result = await client.pronunciations.simpleSearch({ target: "Sergey", targetTypeSig: "fristName", targetOwnerSig: "sergey" })
+const result = await client.pronunciations.simpleSearch({ target: "Sergey", targetTypeSig: TargetTypeSig.FirstName, targetOwnerSig: "sergey" })
 ```
 
 You can find detailed information about all possible parameters and the response format
@@ -78,14 +78,15 @@ Links to the specific methods are placed at the end of each paragraph.
 Quick simple request to get pronunciation for a single target.
 
 ```javascript
+import { TargetTypeSig } from "gpdb-client";
 
-  const result = await client.pronunciations.simpleSearch({ 
-    target: "Sergey", 
-    targetTypeSig: "fristName", 
-    targetOwnerSig: "sergey" 
-  });
+const result = await client.pronunciations.simpleSearch({ 
+  target: "Sergey", 
+  targetTypeSig: TargetTypeSig.FirstName, 
+  targetOwnerSig: "sergey" 
+});
 
-  result
+result
   // { target_result: { ... }, meta: { ... } }
 ```
 
@@ -96,13 +97,15 @@ Quick simple request to get pronunciation for a single target.
 Perform a search in GPDB given between 1 and 10 search targets.
 
 ```javascript
-  const result =  await client.pronunciations.complexSearch({
-    targets: [
-      { target: "jack", targetTypeSig: 'test', targetOwnerContext: { signature: 'uuid' } },
-      { target: "pavel", targetTypeSig: 'test', targetOwnerContext: { signature: 'uuid' } } 
-      ],
-    userContext: { signature: "uuid" }
-  });
+import { TargetTypeSig } from "gpdb-client";
+
+const result =  await client.pronunciations.complexSearch({
+  targets: [
+    { target: "jack", targetTypeSig: TargetTypeSig.FirstName, targetOwnerContext: { signature: 'uuid' } },
+    { target: "pavel", targetTypeSig: TargetTypeSig.FirstName, targetOwnerContext: { signature: 'uuid' } } 
+    ],
+  userContext: { signature: "uuid" }
+});
 
   result
   // { target_result: { ... }, meta: { ... } }
@@ -135,7 +138,7 @@ const result = await gpdbClient.pronunciations.userResponse({
   userResponse: "save",
   userContext: { signature: "uuid" },
   targetOwnerSig: "targetOwnerSig"
-})
+});
 
 result
 // {
@@ -154,6 +157,7 @@ result
 Creating a recording requires target (name), name owner context(not required but advised), user context and application context - required.
 
 ```javascript
+import { TargetTypeSig } from "gpdb-client";
 
 const result = await gpdbClient.pronunciations.createRecording({
   target: 'name',
@@ -161,7 +165,7 @@ const result = await gpdbClient.pronunciations.createRecording({
   audioBase64: 'long_base64_string',
   userContext: { signature: 'userSig' },
   nameOwnerContext: { signature: 'nameOwnerSig' },
-})
+});
 
 result
 // {
