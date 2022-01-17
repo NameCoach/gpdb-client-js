@@ -12,6 +12,8 @@ import NameOwner from './types/input/name-owner';
 import Target from './types/input/tasrget';
 import User from './types/input/user';
 import Resources from './types/repositories/permissions';
+import ResourcePermissions from './types/repositories/permissions';
+
 
 export {
   Client,
@@ -27,5 +29,6 @@ export {
   Target,
   User,
   PermissionsManager,
-  Resources
+  Resources,
+  ResourcePermissions
 };
