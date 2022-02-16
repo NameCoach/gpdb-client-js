@@ -11,6 +11,7 @@ import { TargetTypeSig, UserResponse } from './types/input/enum-types';
 import NameOwner from './types/input/name-owner';
 import Target from './types/input/tasrget';
 import User from './types/input/user';
+import { AttributeConfig, CustomAttributesConfig } from './types/repositories/custom-attributes';
 import { ResourcePermissions, Resources } from './types/repositories/permissions';
 
 export {
@@ -26,6 +27,8 @@ export {
   TargetTypeSig,
   Target,
   User,
+  AttributeConfig,
+  CustomAttributesConfig,
   PermissionsManager,
   Resources,
   ResourcePermissions
