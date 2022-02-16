@@ -15,7 +15,7 @@ export default class CustomAttributesRepository implements ICustomAttributesRepo
 
   retrieveConfig (): Promise<any> {
     return this.httpClient.request({
-      path: 'custom_attributes/retrieve_config',
+      path: '/custom_attributes/retrieve_config',
       method: 'GET',
       contentType: 'json',
     });
