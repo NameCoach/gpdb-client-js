@@ -3,7 +3,8 @@ import PermissionsManager from '../../lib/permissions-manager';
 export enum Resources {
   Pronunciation = "pronunciation",
   UserResponse = "user_response",
-  RecordingRequest = "recording_request"
+  RecordingRequest = "recording_request",
+  CustomAttributes = "custom_attributes"
 }
 
 export type Actions = {
