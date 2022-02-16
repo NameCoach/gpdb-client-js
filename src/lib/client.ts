@@ -5,6 +5,7 @@ import Application from '../types/input/application';
 import HttpClient from './http-client';
 import AnalyticsEventsRepository from './repositories/analytics-events';
 import BrowserExtensionRepository from './repositories/browser-extension';
+import CustomAttributesRepository from './repositories/custom-attributes';
 import PermissionsRepository from './repositories/permissions';
 import PronunciationsRepository from './repositories/pronunciations';
 
@@ -13,6 +14,7 @@ export default class Client implements IClient {
   public readonly analyticsEvents;
   public readonly browserExtension;
   public readonly permissions;
+  public readonly customAttributes;
   public readonly application: Application;
 
   constructor(application: Application, configuration: IConfiguration) {
@@ -35,6 +37,10 @@ export default class Client implements IClient {
     this.analyticsEvents = new AnalyticsEventsRepository(analyticsApiHttpClient);
     this.browserExtension = new BrowserExtensionRepository(analyticsApiHttpClient);
     this.permissions = new PermissionsRepository(
+      apiHttpClient,
+      application
+    )
+    this.customAttributes = new CustomAttributesRepository(
       apiHttpClient,
       application
     )
