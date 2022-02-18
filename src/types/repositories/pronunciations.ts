@@ -54,4 +54,5 @@ export default interface IPronunciationsRepo {
   userResponse:(arg0: UserResponseParams) => Promise<any>;
   createRecording:(arg0: CreateRecordingParams) => Promise<any>;
   createRecordingRequest: (arg0: CreateRecordingRequestParams) => Promise<any>;
+  findRecordingRequest: (arg0: CreateRecordingRequestParams) => Promise<any>
 }
