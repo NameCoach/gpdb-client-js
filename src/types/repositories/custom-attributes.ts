@@ -4,7 +4,7 @@ export type AttributeConfig = {
   id: string,
   label: string,
   presentation: string,
-  matadata: Record<string, unknown> | unknown;
+  matadata?: Record<string, any>;
 };
 
 export type CustomAttributesConfig = {
@@ -14,7 +14,7 @@ export type CustomAttributesConfig = {
 export interface SaveValuesParams {
   targetOwnerContext: User;
   userContext: User;
-  customAttributesValues: Record<string, unknown>;
+  customAttributesValues: Record<string, string | boolean>;
   [x: string]: any;
 }
 
