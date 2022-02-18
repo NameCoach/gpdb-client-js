@@ -4,7 +4,7 @@ export type AttributeConfig = {
   id: string,
   label: string,
   presentation: string,
-  matadata?: Record<string, any>;
+  metadata?: Record<string, any>;
 };
 
 export type CustomAttributesConfig = {
