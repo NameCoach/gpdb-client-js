@@ -21,11 +21,7 @@ export default class CustomAttributesRepository implements ICustomAttributesRepo
     });
   }
 
-  saveValues ( {
-                       userContext,
-                       targetOwnerContext,
-                       customAttributesValues
-                      }: SaveValuesParams): Promise<any> {
+  saveValues ( { userContext, targetOwnerContext, customAttributesValues }: SaveValuesParams): Promise<any> {
     const _values = snakecaseKeys(customAttributesValues);
     const _user = snakecaseKeys(userContext);
     const _owner = snakecaseKeys(targetOwnerContext)

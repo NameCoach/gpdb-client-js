@@ -5,6 +5,8 @@ import { HeadersInit } from '../types/configuration';
 import ICredentials from '../types/credentials';
 import IHttpClient, { ContentType, IRequest } from '../types/http-client';
 
+import HttpError from './http-error';
+
 export default class HttpClient implements IHttpClient {
   private readonly url: string | undefined;
   private readonly headers: Record<string, unknown>;
@@ -44,12 +46,24 @@ export default class HttpClient implements IHttpClient {
     if (!response.ok) {
       const msgParts = [`[GPDB] ${response.statusText}.`];
 
-      if (respBody.message) msgParts.push(`Message: ${respBody?.message}`);
+      if (respBody?.message) msgParts.push(`Message: ${respBody.message}`);
 
-      throw new Error(msgParts.join(' '));
+      if (respBody?.errors) msgParts.push(`Details: ${JSON.stringify(respBody.errors)}`);
+
+      const details = {
+        status: response.status,
+        body: respBody,
+        service: this.getServiceName(this.url),
+      }
+
+      throw new HttpError(msgParts.join(' '), details);
     }
 
     return respBody;
+  }
+
+  private getServiceName (url: string | undefined) {
+    return url?.replace(/\..*/, '')?.replace("https://", "");
   }
 
   private parseContentType (type: ContentType): string {
