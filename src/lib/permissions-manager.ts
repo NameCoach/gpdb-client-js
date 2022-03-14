@@ -26,5 +26,23 @@ export default class PermissionsManager implements IPermissionsManager{
       return true;
 
     return _resource.actions.includes(_permission);
+  };
+
+  cannot(resource: Resources, permission: string): boolean;
+  cannot(resource: Resources): boolean;
+
+  cannot(resource: Resources, permission?: string): boolean {
+    const _resource = this.permissions[resource];
+
+    if (!_resource) return true;
+
+    const _permission = permission;
+
+    if(!_permission) return false;
+
+    if (_resource.exclude_actions.includes('*'))
+      return true;
+
+    return _resource.exclude_actions.includes(_permission);
   }
 }
