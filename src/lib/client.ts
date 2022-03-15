@@ -5,6 +5,7 @@ import Application from '../types/input/application';
 import HttpClient from './http-client';
 import AnalyticsEventsRepository from './repositories/analytics-events';
 import BrowserExtensionRepository from './repositories/browser-extension';
+import ClientSidePreferencesRepository from './repositories/client-side-preferences';
 import CustomAttributesRepository from './repositories/custom-attributes';
 import PermissionsRepository from './repositories/permissions';
 import PronunciationsRepository from './repositories/pronunciations';
@@ -14,6 +15,7 @@ export default class Client implements IClient {
   public readonly analyticsEvents;
   public readonly browserExtension;
   public readonly permissions;
+  public readonly clientPreferences;
   public readonly customAttributes;
   public readonly application: Application;
 
@@ -41,6 +43,10 @@ export default class Client implements IClient {
       application
     )
     this.customAttributes = new CustomAttributesRepository(
+      apiHttpClient,
+      application
+    )
+    this.clientPreferences = new ClientSidePreferencesRepository(
       apiHttpClient,
       application
     )
