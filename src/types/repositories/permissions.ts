@@ -13,6 +13,8 @@ export type Actions = {
 }
 
 export interface loadParams {
+  user_sig?: string;
+  user_sig_type?: string;
   [x: string]: any;
 }
 
