@@ -22,6 +22,12 @@ export interface SearchBySigParams {
   [x: string]: any;
 }
 
+export interface DestroyRestoreParams {
+  id: string;
+  userContext: User;
+  [x: string]: any;
+}
+
 export interface UserResponseParams {
   recordingId: string;
   userResponse: UserResponse;
@@ -51,6 +57,8 @@ export default interface IPronunciationsRepo {
   simpleSearch: (arg0: SimpleSearchParams) => Promise<any>;
   complexSearch: (arg0: ComplexSearchParams) => Promise<any>;
   searchBySig: (arg0: SearchBySigParams) => Promise<any>;
+  destroy: (arg0: DestroyRestoreParams) => Promise<any>;
+  restore: (arg0: DestroyRestoreParams) => Promise<any>;
   userResponse:(arg0: UserResponseParams) => Promise<any>;
   createRecording:(arg0: CreateRecordingParams) => Promise<any>;
   createRecordingRequest: (arg0: CreateRecordingRequestParams) => Promise<any>;
