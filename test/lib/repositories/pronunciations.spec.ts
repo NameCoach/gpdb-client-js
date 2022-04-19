@@ -16,7 +16,8 @@ import {
   CreateRecordingParams,
   SimpleSearchParams,
   SearchBySigParams,
-  UserResponseParams
+  UserResponseParams,
+  DestroyRestoreParams
 } from '../../../src/types/repositories/pronunciations';
 
 const test = anyTest as TestInterface<{
@@ -57,9 +58,16 @@ const createRecordingParams: CreateRecordingParams = {
   userContext: { signature: 'userSig' },
 }
 
+const destroyRestoreParams: DestroyRestoreParams = {
+  id: "recordingId",
+  userContext: { signature: 'userSig' }
+}
+
 const appAttributes: Application = {
   typeSig: 'typeSig', instanceSig: 'instanceSig'
 }
+
+// callbacks
 
 test.beforeEach(t => {
   const httpClient = new HttpClient('https://api-url', new Credentials('id', 'secret'));
@@ -71,6 +79,12 @@ test.beforeEach(t => {
     appAttributes
   );
 })
+
+test.afterEach.always(t => {
+  t.context.requestStub.restore();
+})
+
+// simple search
 
 test('simpleSearch calls http client and returns a response', async t => {
   t.context.requestStub.resolves('response body');
@@ -100,6 +114,8 @@ test('simpleSearch adds application attributes to the params', t => {
   t.is(requestArgument.application_type_sig, appAttributes.typeSig);
 })
 
+// complexSearch
+
 test('complexSearch calls http client and returns a response', async t => {
   t.context.requestStub.resolves('response body');
 
@@ -127,6 +143,8 @@ test('complexSearch adds application attributes to the params as application con
   t.is(requestArgument.application_context.app_type_sig, appAttributes.typeSig);
 })
 
+// searchBySig
+
 test('searchBySig calls http client and returns a response', async t => {
   t.context.requestStub.resolves('some response');
 
@@ -144,6 +162,8 @@ test('searchBySig adds application attributes to the params as application conte
   t.is(requestArgument.application_context.app_type_sig, appAttributes.typeSig);
 })
 
+// userResponse
+
 test('userResponse calls http client and returns a response', async t => {
   t.context.requestStub.resolves('response body');
 
@@ -160,6 +180,8 @@ test('userResponse transforms parameters to snakecase', t => {
   t.is(requestArgument.user_response, userResponseParams.userResponse);
   t.is(requestArgument.name_owner_sig, userResponseParams.targetOwnerSig);
 })
+
+// createRecording
 
 test('createRecording calls http client and returns a response', async t => {
   t.context.requestStub.resolves('response body');
@@ -179,6 +201,38 @@ test('createRecording transforms parameters to snakecase', t => {
   t.is(requestArgument.name_owner_context, createRecordingParams.nameOwnerContext);
 })
 
-test.afterEach.always(t => {
-  t.context.requestStub.restore();
+// destroy
+
+test('destroy calls http client and returns a response', async t => {
+  t.context.requestStub.resolves('response body');
+
+  t.is(await t.context.instance.destroy(destroyRestoreParams), 'response body');
+
+  sinon.assert.calledOnce(t.context.requestStub);
+})
+
+test('destroy transforms parameters to snakecase', t => {
+  t.context.instance.destroy(destroyRestoreParams);
+
+  const requestArgument = <DestroyRestoreParams> t.context.requestStub.getCall(0).args[0].body;
+
+  t.deepEqual(requestArgument.user_context, destroyRestoreParams.userContext);
+})
+
+// restore
+
+test('restore calls http client and returns a response', async t => {
+  t.context.requestStub.resolves('response body');
+
+  t.is(await t.context.instance.restore(destroyRestoreParams), 'response body');
+
+  sinon.assert.calledOnce(t.context.requestStub);
+})
+
+test('restore transforms parameters to snakecase', t => {
+  t.context.instance.restore(destroyRestoreParams);
+
+  const requestArgument = <DestroyRestoreParams> t.context.requestStub.getCall(0).args[0].body;
+
+  t.deepEqual(requestArgument.user_context, destroyRestoreParams.userContext);
 })
