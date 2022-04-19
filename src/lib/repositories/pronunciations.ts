@@ -4,6 +4,7 @@ import IHttpClient from '../../types/http-client';
 import Application from '../../types/input/application';
 import IPronunciationsRepo, {
   ComplexSearchParams, CreateRecordingParams, CreateRecordingRequestParams,
+  DestroyRestoreParams,
   SearchBySigParams, SimpleSearchParams,
   UserResponseParams
 } from '../../types/repositories/pronunciations';
@@ -80,6 +81,46 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
       contentType: 'json',
       body: {
         target_owner_context: _target_owner_context,
+        user_context: _user,
+        application_context: {
+          app_description: this.application.description,
+          app_type_sig: this.application.typeSig,
+          instance_sig: this.application.instanceSig,
+          hedb_api_token: this.application.hedbApiToken
+        },
+        ...rest
+      }
+    });
+  }
+
+  destroy ({ id, userContext, ...rest }: DestroyRestoreParams): Promise<any> {
+    const _user = snakecaseKeys(userContext);
+
+    return this.httpClient.request({
+      path: `/pronunciations/${id}`,
+      method: 'DELETE',
+      contentType: 'json',
+      body: {
+        user_context: _user,
+        application_context: {
+          app_description: this.application.description,
+          app_type_sig: this.application.typeSig,
+          instance_sig: this.application.instanceSig,
+          hedb_api_token: this.application.hedbApiToken
+        },
+        ...rest
+      }
+    });
+  }
+
+  restore ({ id, userContext, ...rest }: DestroyRestoreParams): Promise<any> {
+    const _user = snakecaseKeys(userContext);
+
+    return this.httpClient.request({
+      path: `/pronunciations/${id}/restore`,
+      method: 'PUT',
+      contentType: 'json',
+      body: {
         user_context: _user,
         application_context: {
           app_description: this.application.description,
