@@ -18,7 +18,10 @@ For more information on NameCoach GPDB APi, you can visit [documentation page](h
   - [Analytics Events](#analytics-events)
     - [Create](#create-analytics-events)
   - [Permissions](#permissions)
-   - [Load](#load)
+    - [Load](#load)
+  - [Custom Attributes](#custom-attributes)
+    - [Retrieve Config](#retrieve-config)
+    - [Save Values](#save-values)
   
 
 ## Installation
@@ -207,3 +210,32 @@ Quick simple request to get resource permissions for current app.
   // const permissionsManager = result;
   // const canCreateRecording = permissionsManager.can("pronounciation", "create");~~_``_~~
 ```
+
+### Custom Attributes
+
+#### Retrieve Config
+
+Quick simple request to retrieve custom attributes config.
+
+```javascript
+
+  const result = await client.customAttributes.retrieveConfig();
+
+  result
+  // const customAttributes = result.data;
+```
+
+#### Save Values
+
+Post request to save user input for custom attributes.
+
+```javascript
+
+  const result = await client.customAttributes.saveValues({ 
+    userContext: { signature: 'userSig' },
+    targetOwnerContext:  { signature: 'nameOwnerSig' }, 
+    customAttributesValues: { some_key: 'value', another_key: true }
+  });
+
+```
+[Custom attributes documentation](https://namecoachgpdb.docs.apiary.io/#reference/custom-attributes)
