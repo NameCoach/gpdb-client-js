@@ -138,9 +138,11 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
                   userResponse,
                   userContext,
                   targetOwnerSig,
+                  targetOwnerSigType,
                   ...rest
                 }: UserResponseParams): Promise<any> {
-    const { signature } = userContext;
+              
+    const { signature, signatureType } = userContext;
 
     return this.httpClient.request({
       path: `/pronunciations/${recordingId}/user_response`,
@@ -149,7 +151,9 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
       body: {
         user_response: userResponse,
         user_sig: signature,
+        user_signature_type: signatureType,
         name_owner_sig: targetOwnerSig,
+        name_owner_signature_type: targetOwnerSigType,
         ...rest
       }
     });
@@ -189,6 +193,9 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
   }
 
   createRecordingRequest({ target, targetTypeSig, targetOwnerContext, userContext, ...rest }: CreateRecordingRequestParams): Promise<any> {
+    const _user = snakecaseKeys(userContext);
+    const _target_owner_context = snakecaseKeys(targetOwnerContext);
+
     return this.httpClient.request({
       path: '/recording_requests',
       method: 'POST',
@@ -196,8 +203,8 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
       body: {
         target,
         target_type_sig: targetTypeSig,
-        target_owner_context: targetOwnerContext,
-        user_context: userContext,
+        target_owner_context: _target_owner_context,
+        user_context: _user,
         application_context: {
           app_description: this.application.description,
           app_type_sig: this.application.typeSig,
@@ -210,6 +217,9 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
   }
 
   findRecordingRequest({ target, targetTypeSig, targetOwnerContext, userContext, ...rest }: CreateRecordingRequestParams): Promise<any> {
+    const _user = snakecaseKeys(userContext);
+    const _target_owner_context = snakecaseKeys(targetOwnerContext);
+
     return this.httpClient.request({
       path: '/recording_requests/find',
       method: 'POST',
@@ -217,8 +227,8 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
       body: {
         target,
         target_type_sig: targetTypeSig,
-        target_owner_context: targetOwnerContext,
-        user_context: userContext,
+        target_owner_context: _target_owner_context,
+        user_context: _user,
         application_context: {
           app_description: this.application.description,
           app_type_sig: this.application.typeSig,
