@@ -165,6 +165,7 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
                    }: CreateRecordingParams): Promise<any> {
 
     const _user = snakecaseKeys(userContext);
+    const _name_owner = snakecaseKeys(nameOwnerContext);
 
     return this.httpClient.request({
       path: '/pronunciations',
@@ -175,7 +176,7 @@ export default class PronunciationsRepository implements IPronunciationsRepo {
         audio_data: audioBase64,
         target_type_sig: targetTypeSig,
         user_context: _user,
-        name_owner_context: nameOwnerContext,
+        name_owner_context: _name_owner,
         application_context: {
           app_description: this.application.description,
           app_type_sig: this.application.typeSig,
