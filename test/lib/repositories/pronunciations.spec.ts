@@ -1,5 +1,6 @@
 import anyTest, { TestInterface } from 'ava';
 import sinon from 'sinon';
+import snakecaseKeys from 'snakecase-keys';
 import Credentials from '../../../src/lib/credentials';
 import HttpClient from '../../../src/lib/http-client';
 import PronunciationsRepository
@@ -54,7 +55,7 @@ const createRecordingParams: CreateRecordingParams = {
   target: 'name',
   targetTypeSig: TargetTypeSig.FirstName,
   audioBase64: 'long_base64_string',
-  nameOwnerContext: { signature: 'nameOwnerSig' },
+  nameOwnerContext: { signature: 'nameOwnerSig', signature_type: "email" },
   userContext: { signature: 'userSig' },
 }
 
@@ -197,8 +198,8 @@ test('createRecording transforms parameters to snakecase', t => {
   const requestArgument = <CreateRecordingParams> t.context.requestStub.getCall(0).args[0].body;
 
   t.deepEqual(requestArgument.user_context, createRecordingParams.userContext);
+  t.deepEqual(requestArgument.name_owner_context, snakecaseKeys(createRecordingParams.nameOwnerContext));
   t.is(requestArgument.target_type_sig, createRecordingParams.targetTypeSig);
-  t.is(requestArgument.name_owner_context, createRecordingParams.nameOwnerContext);
 })
 
 // destroy
