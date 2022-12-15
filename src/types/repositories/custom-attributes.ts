@@ -18,7 +18,12 @@ export interface SaveValuesParams {
   [x: string]: any;
 }
 
+export interface RetrieveValuesParams {
+  targetOwnerContext: User;
+}
+
 export default interface ICustomAttributesRepo {
   retrieveConfig: () => Promise<CustomAttributesConfig>;
   saveValues: (arg0: SaveValuesParams) => Promise<any>;
+  retrieveValues: (args: RetrieveValuesParams) => Promise<any>
 }
