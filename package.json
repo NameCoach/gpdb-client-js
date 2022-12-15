@@ -52,7 +52,7 @@
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "async": "^2.6.4",
-    "ava": "^3.13.0",
+    "ava": "^5.1.0",
     "codecov": "^3.8.1",
     "cz-conventional-changelog": "^3.0.1",
     "eslint": "^7.12.1",
