@@ -6,7 +6,7 @@ import CustomAttributesRepository
   from '../../../src/lib/repositories/custom-attributes';
 import { IRequest } from '../../../src/types/http-client';
 import Application from '../../../src/types/input/application';
-import { SaveValuesParams } from '../../../src/types/repositories/custom-attributes';
+import { RetrieveValuesParams, SaveValuesParams } from '../../../src/types/repositories/custom-attributes';
 
 const test = anyTest as TestInterface<{
   instance: CustomAttributesRepository,
@@ -21,6 +21,10 @@ const saveValuesParams: SaveValuesParams = {
   targetOwnerContext: { signature: 'ownerSig' },
   userContext: { signature: 'userSig' },
   customAttributesValues: { id1: 'Mr.', middleName: 'M'}
+}
+
+const retrieveValuesParams: RetrieveValuesParams = {
+  targetOwnerContext: { signature: 'ownerSig' },
 }
 
 const config = {};
@@ -50,6 +54,14 @@ test(' saveValues calls http client and returns a response', async t => {
   sinon.assert.calledOnce(t.context.requestStub);
 })
 
+test(' retrieveValues calls http client and returns a response', async t => {
+  t.context.requestStub.resolves('response body');
+
+  t.is(await t.context.instance.retrieveValues(retrieveValuesParams), 'response body');
+
+  sinon.assert.calledOnce(t.context.requestStub);
+})
+
 test(' saveValues transforms parameters to snakecase', t => {
   t.context.instance.saveValues(saveValuesParams);
 
@@ -61,6 +73,15 @@ test(' saveValues transforms parameters to snakecase', t => {
 
 test(' saveValues adds application attributes to the params', t => {
   t.context.instance.saveValues(saveValuesParams);
+
+  const requestArgument = <SaveValuesParams> t.context.requestStub.getCall(0).args[0].body;
+
+  t.is(requestArgument.application_context.instance_sig, appAttributes.instanceSig);
+  t.is(requestArgument.application_context.app_type_sig, appAttributes.typeSig);
+})
+
+test(' retrieveValues adds application attributes to the params', t => {
+  t.context.instance.retrieveValues(retrieveValuesParams);
 
   const requestArgument = <SaveValuesParams> t.context.requestStub.getCall(0).args[0].body;
 
