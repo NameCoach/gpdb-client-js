@@ -203,12 +203,7 @@ Create analytics event:
 Quick simple request to get resource permissions for current app.
 
 ```javascript
-
   const result = await client.permissions.load();
-
-  result
-  // const permissionsManager = result;
-  // const canCreateRecording = permissionsManager.can("pronounciation", "create");~~_``_~~
 ```
 
 ### Custom Attributes
@@ -218,11 +213,7 @@ Quick simple request to get resource permissions for current app.
 Quick simple request to retrieve custom attributes config.
 
 ```javascript
-
   const result = await client.customAttributes.retrieveConfig();
-
-  result
-  // const customAttributes = result.data;
 ```
 
 #### Save Values
