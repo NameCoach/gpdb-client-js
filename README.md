@@ -238,4 +238,40 @@ Post request to save user input for custom attributes.
   });
 
 ```
+
+### Preferred recordings
+
+#### Save
+
+Save preferred recordings with
+
+```javascript
+await.client.preferredRecordings.save({
+  firstNameRecordingId: "123456",
+  lastNameRecordingId: "789012",
+  userContext: { signature: 'userSig@email.com', signatureType: 'email' }
+})
+```
+
+#### Get
+
+Get saved preferred recordings with
+
+```javascript
+await.client.preferredRecordings.get({
+  userContext: { signature: 'userSig@email.com', signatureType: 'email' }
+})
+```
+
+#### Delete
+
+Delete saved preferred recordings with 
+
+```javascript
+await.client.preferredRecordings.get({
+  firstNameRecordingId: "123456",
+  lastNameRecordingId: "789012",
+  userContext: { signature: 'userSig@email.com', signatureType: 'email' }
+})
+```
 [Custom attributes documentation](https://namecoachgpdb.docs.apiary.io/#reference/custom-attributes)
