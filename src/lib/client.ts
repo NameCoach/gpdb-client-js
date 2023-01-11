@@ -8,6 +8,7 @@ import BrowserExtensionRepository from './repositories/browser-extension';
 import ClientSidePreferencesRepository from './repositories/client-side-preferences';
 import CustomAttributesRepository from './repositories/custom-attributes';
 import PermissionsRepository from './repositories/permissions';
+import PreferredRecordingsRepository from './repositories/preferred-recordings';
 import PronunciationsRepository from './repositories/pronunciations';
 
 export default class Client implements IClient {
@@ -17,6 +18,7 @@ export default class Client implements IClient {
   public readonly permissions;
   public readonly clientPreferences;
   public readonly customAttributes;
+  public readonly preferredRecordings;
   public readonly application: Application;
 
   constructor(application: Application, configuration: IConfiguration) {
@@ -25,19 +27,20 @@ export default class Client implements IClient {
       configuration.credentials,
       configuration.headers
     ),
-      apiHttpClient = new HttpClient(
+     apiHttpClient = new HttpClient(
       configuration.apiUrl,
       configuration.credentials,
       configuration.headers
     );
 
     this.application = application;
+    this.analyticsEvents = new AnalyticsEventsRepository(analyticsApiHttpClient);
+    this.browserExtension = new BrowserExtensionRepository(analyticsApiHttpClient);
+    
     this.pronunciations = new PronunciationsRepository(
       apiHttpClient,
       application
     );
-    this.analyticsEvents = new AnalyticsEventsRepository(analyticsApiHttpClient);
-    this.browserExtension = new BrowserExtensionRepository(analyticsApiHttpClient);
     this.permissions = new PermissionsRepository(
       apiHttpClient,
       application
@@ -47,6 +50,10 @@ export default class Client implements IClient {
       application
     )
     this.clientPreferences = new ClientSidePreferencesRepository(
+      apiHttpClient,
+      application
+    )
+    this.preferredRecordings = new PreferredRecordingsRepository(
       apiHttpClient,
       application
     )
