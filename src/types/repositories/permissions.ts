@@ -4,7 +4,8 @@ export enum Resources {
   Pronunciation = "pronunciation",
   UserResponse = "user_response",
   RecordingRequest = "recording_request",
-  CustomAttributes = "custom_attributes"
+  CustomAttributes = "custom_attributes",
+  PreferredRecordings = "preferred_recordings",
 }
 
 export type Actions = {
