@@ -7,7 +7,8 @@ export interface SaveArgs {
 }
 
 export interface GetArgs {
-  userContext: User
+  userContext: User,
+  ownerContext: User,
 }
 
 export interface DeleteArgs extends SaveArgs {}
