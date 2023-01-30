@@ -10,6 +10,7 @@ import CustomAttributesRepository from './repositories/custom-attributes';
 import PermissionsRepository from './repositories/permissions';
 import PreferredRecordingsRepository from './repositories/preferred-recordings';
 import PronunciationsRepository from './repositories/pronunciations';
+import AvatarsRepository from './repositories/avatars';
 
 export default class Client implements IClient {
   public readonly pronunciations;
@@ -19,6 +20,7 @@ export default class Client implements IClient {
   public readonly clientPreferences;
   public readonly customAttributes;
   public readonly preferredRecordings;
+  public readonly avatars;
   public readonly application: Application;
 
   constructor(application: Application, configuration: IConfiguration) {
@@ -54,6 +56,10 @@ export default class Client implements IClient {
       application
     )
     this.preferredRecordings = new PreferredRecordingsRepository(
+      apiHttpClient,
+      application
+    )
+    this.avatars = new AvatarsRepository(
       apiHttpClient,
       application
     )

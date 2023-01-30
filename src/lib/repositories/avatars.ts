@@ -3,12 +3,12 @@ import Application from '../../types/input/application';
 import {
   DeleteArgs,
   GetArgs,
-  IPreferredRecordingsRepo,
+  IAvatarsRepo,
   SaveArgs,
-} from '../../types/repositories/preferred-recordings';
+} from '../../types/repositories/avatars';
 
-export default class PreferredRecordingsRepository
-  implements IPreferredRecordingsRepo {
+export default class AvatarsRepository
+  implements IAvatarsRepo {
   private httpClient: IHttpClient;
   private application: Application;
 
@@ -18,17 +18,15 @@ export default class PreferredRecordingsRepository
   }
 
   save({
-    firstNameRecordingId,
-    lastNameRecordingId,
+    imageBase64,
     userContext,
   }: SaveArgs): Promise<any> {
     return this.httpClient.request({
-      path: '/user/preferred_recordings',
+      path: '/user/avatar',
       method: 'POST',
       contentType: 'json',
       body: {
-        first_name_recording_id: firstNameRecordingId,
-        last_name_recording_id: lastNameRecordingId,
+        image: imageBase64,
         user_context: userContext,
         application_sig: this.application.instanceSig,
         application_type_sig: this.application.typeSig,
@@ -39,7 +37,7 @@ export default class PreferredRecordingsRepository
 
   get({ userContext, ownerContext }: GetArgs): Promise<any> {
     return this.httpClient.request({
-      path: '/user/preferred_recordings',
+      path: '/user/avatar',
       method: 'GET',
       contentType: 'json',
       params: {
@@ -55,19 +53,15 @@ export default class PreferredRecordingsRepository
   }
 
   delete({
-    firstNameRecordingId,
-    lastNameRecordingId,
     userContext,
   }: DeleteArgs): Promise<any> {
+    debugger;
     return this.httpClient.request({
-      path: '/user/preferred_recordings',
+      path: '/user/avatar',
       method: 'DELETE',
       contentType: 'json',
-      params: {
-        first_name_recording_id: firstNameRecordingId,
-        last_name_recording_id: lastNameRecordingId,
-        user_sig: userContext.signature,
-        user_sig_type: userContext.signatureType,
+      body: {
+        user_context: userContext,
         application_sig: this.application.instanceSig,
         application_type_sig: this.application.typeSig,
         application_hedb_api_token: this.application.hedbApiToken,

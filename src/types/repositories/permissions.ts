@@ -6,6 +6,7 @@ export enum Resources {
   RecordingRequest = "recording_request",
   CustomAttributes = "custom_attributes",
   PreferredRecordings = "preferred_recordings",
+  Avatars = "avatar"
 }
 
 export type Actions = {
