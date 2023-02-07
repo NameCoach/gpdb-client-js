@@ -55,7 +55,6 @@ export default class AvatarsRepository
   delete({
     userContext,
   }: DeleteArgs): Promise<any> {
-    debugger;
     return this.httpClient.request({
       path: '/user/avatar',
       method: 'DELETE',
